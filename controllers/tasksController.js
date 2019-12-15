@@ -48,6 +48,6 @@ exports.updateTask = async (req, res, next) => {
     const dt = req.body;
     const task = db.get('tasks').find({
         id
-    }).assign(dt);
+    }).assign(dt).write();
     res.status(200).send(task);
 }

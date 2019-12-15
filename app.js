@@ -23,7 +23,8 @@ app.use(logger("dev"));
 const adapter = new FileSync("data/db.json");
 const db = low(adapter);
 db.defaults({
-    tasks: [{}]
+    tasks: [],
+    users: []
 }).write();
 
 // REQUEST PARSERS

@@ -4,6 +4,9 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
+const {
+    setCors
+} = require("./middleware/security");
 
 // ROUTERS
 const indexRouter = require("./routes/index");
@@ -31,6 +34,8 @@ app.use(
     })
 );
 app.use(cookieParser());
+app.use(setCors);
+
 
 // STATIC FILES
 app.use(express.static(path.join(__dirname, "public")));

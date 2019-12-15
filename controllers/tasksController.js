@@ -4,13 +4,13 @@ const adapter = new FileSync('data/db.json');
 const db = low(adapter);
 
 
-exports.getTasks = async (req, res, next) => {
+exports.getTasks = (req, res, next) => {
     const tasks = db.get('tasks').value()
     res.status(200).send(tasks);
 }
 
 
-exports.addTask = async (req, res, next) => {
+exports.addTask = (req, res, next) => {
     const task = req.body;
     db.get('tasks').push(task)
         .last()

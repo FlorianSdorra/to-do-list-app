@@ -12,7 +12,7 @@ exports.getTasks = async (req, res, next) => {
 
 exports.addTask = async (req, res, next) => {
     const task = req.body;
-    db.get('records').push(task)
+    db.get('tasks').push(task)
         .last()
         .assign({
             id: Date.now().toString()

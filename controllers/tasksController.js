@@ -9,6 +9,16 @@ exports.getTasks = (req, res, next) => {
     res.status(200).send(tasks);
 }
 
+exports.getTask = async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    const task = db.get('tasks').find({
+        id
+    });
+    res.status(200).send(task);
+}
+
 
 exports.addTask = (req, res, next) => {
     const task = req.body;

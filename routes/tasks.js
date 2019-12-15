@@ -6,18 +6,21 @@ const adapter = new FileSync('data/db.json');
 const db = low(adapter);
 const {
     getTasks,
-    addTask
+    addTask,
+    getTask
 } = require('../controllers/tasksController');
 
-/**
- * GET all tasks
- */
-router.get('/', getTasks);
+// get all task, add task etc.
+
+router.
+route('/').
+get(getTasks).
+post(addTask);
+
+router.
+route('/:id').
+get(getTask);
 
 
-/**
- * POST a task
- */
-router.post('/', addTask);
 
 module.exports = router;

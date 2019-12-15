@@ -1,21 +1,17 @@
 {
   "tasks": [
-    "waddup",
     {
       "task": "do your homework fool",
-      "id": "1576418231222"
-    },
-    {
-      "task": "do your homework fool",
-      "id": "1576418245603"
-    },
-    {
-      "task": "and again doosh",
-      "id": "1576420674868"
+      "id": "1576418245603",
+      "task2": "even if it takes til midnight mate"
     },
     {
       "task": "still doing that homework",
       "id": "1576424274917"
+    },
+    {
+      "task": "its 6pm, i started at fucking 12",
+      "id": "1576428205234"
     }
   ]
 }

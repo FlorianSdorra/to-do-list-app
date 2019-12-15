@@ -8,7 +8,8 @@ const {
     getTasks,
     addTask,
     getTask,
-    deleteTask
+    deleteTask,
+    updateTask
 } = require('../controllers/tasksController');
 
 // get all task, add task etc.
@@ -21,6 +22,7 @@ post(addTask);
 router.
 route('/:id').
 delete(deleteTask).
+put(updateTask).
 get(getTask);
 
 

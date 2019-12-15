@@ -40,3 +40,14 @@ exports.deleteTask = async (req, res, next) => {
     });
     res.status(200).send(task);
 }
+
+exports.updateTask = async (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    const dt = req.body;
+    const task = db.get('tasks').find({
+        id
+    }).assign(dt);
+    res.status(200).send(task);
+}

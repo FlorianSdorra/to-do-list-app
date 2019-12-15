@@ -7,7 +7,8 @@ const db = low(adapter);
 const {
     getTasks,
     addTask,
-    getTask
+    getTask,
+    deleteTask
 } = require('../controllers/tasksController');
 
 // get all task, add task etc.
@@ -19,6 +20,7 @@ post(addTask);
 
 router.
 route('/:id').
+delete(deleteTask).
 get(getTask);
 
 

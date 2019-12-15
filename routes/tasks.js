@@ -20,7 +20,15 @@ router.get('/', function (req, res, next) {
  * POST a task
  */
 router.post('/', function (req, res, next) {
-    res.send('Here we shall return the new stored task they user send');
+    let task = req.body;
+    db.get('tasks').push(task)
+        .last()
+        .assign({
+            id: Date.now().toString()
+        })
+        .write()
+
+    res.status(200).send(task);
 });
 
 module.exports = router;

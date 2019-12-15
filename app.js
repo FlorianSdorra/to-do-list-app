@@ -20,9 +20,7 @@ app.use(logger("dev"));
 const adapter = new FileSync("data/db.json");
 const db = low(adapter);
 db.defaults({
-    tasks: [{
-        sss: 'red'
-    }]
+    tasks: [{}]
 }).write();
 
 // REQUEST PARSERS

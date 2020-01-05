@@ -4,12 +4,12 @@ const adapter = new FileSync('data/db.json');
 const db = low(adapter);
 
 
-exports.getUsers = async (req, res, next) => {
+exports.getUsers = (req, res, next) => {
     const users = db.get('users').value()
     res.status(200).send(users);
 }
 
-exports.getUser = async (req, res, next) => {
+exports.getUser = (req, res, next) => {
     const {
         id
     } = req.params;
@@ -19,7 +19,7 @@ exports.getUser = async (req, res, next) => {
     res.status(200).send(user);
 }
 
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = (req, res, next) => {
     const {
         id
     } = req.params;
@@ -29,7 +29,7 @@ exports.deleteUser = async (req, res, next) => {
     res.status(200).send(user);
 }
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = (req, res, next) => {
     const {
         id
     } = req.params;
@@ -40,7 +40,7 @@ exports.updateUser = async (req, res, next) => {
     res.status(200).send(user);
 }
 
-exports.addUser = async (req, res, next) => {
+exports.addUser = (req, res, next) => {
     const user = req.body;
     db.get('users').push(user)
         .last()

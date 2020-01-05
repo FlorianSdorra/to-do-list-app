@@ -4,14 +4,15 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
-const {
-    setCors
-} = require("./middleware/security");
+const mongoose = require("mongoose");
 
 // ROUTERS
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const tasksRouter = require("./routes/tasks");
+const {
+    setCors
+} = require("./middleware/security");
 
 // INIT
 const app = express();
@@ -27,6 +28,18 @@ db.defaults({
     users: []
 }).write();
 
+// CONNECT TO DB
+
+mongoose.connect("mongodb://localhost:27017/to-do-list-app", {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+});
+
+mongoose.connection.on("error", console.error);
+mongoose.connection.on("open", function () {
+    console.log("Database connection established...");
+});
 // REQUEST PARSERS
 app.use(express.json());
 app.use(
@@ -49,7 +62,7 @@ app.use("/tasks", tasksRouter);
 // ERROR HANDLING 
 
 app.use(function (req, res, next) {
-    const error = new Error('Looks like someting is broken');
+    const error = new Error("Looks like something is broken");
     error.status = 400;
     next(error)
 });

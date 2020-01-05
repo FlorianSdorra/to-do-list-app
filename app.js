@@ -46,4 +46,23 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 
+// ERROR HANDLING 
+
+app.use(function (req, res, next) {
+    const error = new Error('Looks like someting is broken');
+    error.status = 400;
+    next(error)
+});
+
+app.use(function (err, req, res, next) {
+    res.send({
+        error: {
+            message: err.message
+        }
+    });
+});
+
+
+
+// EXPORT PATH 
 module.exports = app;

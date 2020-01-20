@@ -2,13 +2,10 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
 const mongoose = require("mongoose");
 
 // ROUTERS
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const tasksRouter = require("./routes/tasks");
 const {
     setCors
@@ -20,17 +17,9 @@ const app = express();
 // LOGGING
 app.use(logger("dev"));
 
-/** SETTING UP LOWDB */
-const adapter = new FileSync("data/db.json");
-const db = low(adapter);
-db.defaults({
-    tasks: [],
-    users: []
-}).write();
-
 // CONNECT TO DB
 
-mongoose.connect("mongodb://localhost:27017/to-do-list-app", {
+mongoose.connect("mongodb+srv://flo:krjAXHmI6Br0ueAl@todocluster-5dky8.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -57,7 +46,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 
 // ERROR HANDLING 
@@ -80,3 +68,5 @@ app.use(function (err, req, res, next) {
 
 // EXPORT PATH 
 module.exports = app;
+
+// krjAXHmI6Br0ueAl

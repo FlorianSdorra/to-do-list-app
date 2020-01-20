@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=to-do-list-app:* nodemon --inspect ./bin/www --ignore 'data/*'"
+    "start": "DEBUG=to-do-list-app:* nodemon --inspect ./bin/www --ignore 'data/*'",
+    "build": "node build --output public"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

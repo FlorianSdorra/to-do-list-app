@@ -33,7 +33,8 @@ db.defaults({
 mongoose.connect("mongodb://localhost:27017/to-do-list-app", {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 mongoose.connection.on("error", console.error);

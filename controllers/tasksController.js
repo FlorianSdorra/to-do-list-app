@@ -3,51 +3,58 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('data/db.json');
 const db = low(adapter);
 
+const Task = require('../models/Tasks');
+const createError = require('http-errors');
 
-exports.getTasks = (req, res, next) => {
-    const tasks = db.get('tasks').value()
-    res.status(200).send(tasks);
-}
 
-exports.getTask = (req, res, next) => {
-    const {
-        id
-    } = req.params;
-    const task = db.get('tasks').find({
-        id
-    });
-    res.status(200).send(task);
-}
+exports.getTasks =  async (req, res, next) => {
+    try {
+        const tasks = await Task.find();
+        res.status(200).send(tasks)
+    } catch(e) {
+        next(e);
+    }
+};
 
-exports.addTask = (req, res, next) => {
-    const task = req.body;
-    db.get('tasks').push(task)
-        .last()
-        .assign({
-            id: Date.now().toString()
-        })
-        .write()
+exports.getTask = async (req, res, next) => {
+    try {
+        const {id} = req.params;
+        const task = await Task.findById(id);
+        if(!task) throw new createError.notFound();
+        res.status(200).send(task);
+    } catch(e){
+        next(e);
+    }
+};
 
-    res.status(200).send(task);
-}
+exports.addTask = async (req, res, next) => {
+    try {
+        const task = new Task(req.body);
+        await task.save();
+        res.status(200).send(task);
+    } catch(e){
+        next(e);
+    }
+};
 
-exports.deleteTask = (req, res, next) => {
-    const {
-        id
-    } = req.params;
-    const task = db.get('tasks').remove({
-        id
-    });
-    res.status(200).send(task);
-}
+exports.deleteTask = async (req, res, next) => {
+    try {
+        const task = await Task.findByIdAndDelete(req.params.id);
+        if (!task) throw new createError.notFound();
+        res.status(200).send(task);
+    } catch(e){
+        next(e);
+    }
+};
 
-exports.updateTask = (req, res, next) => {
-    const {
-        id
-    } = req.params;
-    const dt = req.body;
-    const task = db.get('tasks').find({
-        id
-    }).assign(dt).write();
-    res.status(200).send(task);
+exports.updateTask = async (req, res, next) => {
+    try {
+        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+            new: true
+        });
+        if(!task) throw new createError.notFound();
+        res.status(200).send(task);
+    } catch(e) {
+        next(e);
+    }
 }
